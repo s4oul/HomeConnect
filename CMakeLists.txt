@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(FanSmart VERSION 1.0)
+project(HomeConnect VERSION 1.0)
 enable_language(C)
 enable_language(CXX)
 
@@ -13,7 +13,8 @@ add_compile_options(-W -Wall -Wextra -Wconversion-null)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(EXE_NAME home_connect)
+set(EXE_NAME_HOME_CONNECT home_connect)
+set(EXE_NAME_FAN_SMART fan_smart)
 set(CMAKE_INSTALL_PREFIX /usr)
 
 if(SYNCHRONE)
@@ -33,8 +34,10 @@ elseif(TARGET_RASPBERRY_PI_3)
     add_definitions(-D__RASPBERRY)
 endif()
 
-
-add_subdirectory(source)
+add_executable(${EXE_NAME_HOME_CONNECT})
+add_executable(${EXE_NAME_FAN_SMART})
+add_subdirectory(homeconnect)
+add_subdirectory(fansmart)
 
 message("####################")
 message("CMAKE_CXX_STANDARD          : ${CMAKE_CXX_STANDARD}")
