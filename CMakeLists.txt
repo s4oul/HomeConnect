@@ -14,6 +14,7 @@ add_compile_options(
     -Wall
     -Wextra
     -Wconversion-null
+    -Wsign-compare
     -Wconversion
     -Werror=format-security
 )
@@ -23,6 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(EXE_NAME_HOME_CONNECT home_connect)
 set(EXE_NAME_FAN_SMART fan_smart)
 set(CMAKE_INSTALL_PREFIX /usr)
+set(CMAKE_CXX_CPPCHECK "cppcheck")
+
 
 if(SYNCHRONE)
     add_definitions(-D__SYNCHRONE)

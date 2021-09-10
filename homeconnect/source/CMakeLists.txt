@@ -33,6 +33,7 @@ target_link_directories(${EXE_NAME_HOME_CONNECT} PRIVATE /usr/lib/embedded_engin
 
 target_link_libraries(${EXE_NAME_HOME_CONNECT} PRIVATE Threads::Threads)
 target_link_libraries(${EXE_NAME_HOME_CONNECT} PRIVATE EmbeddedEngine)
+target_link_libraries(${EXE_NAME_HOME_CONNECT} PRIVATE stdc++fs)
 
 if(TARGET_RASPBERRY_PI_3)
     target_link_libraries(${EXE_NAME_HOME_CONNECT} PRIVATE wiringPi)

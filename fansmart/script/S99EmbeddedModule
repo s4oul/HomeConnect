@@ -11,7 +11,7 @@
 # Description:       Gestion du ventillateur par la temperature
 ### END INIT INFO
 
-DAEMON="/usr/local/bin/embedded_engine/fan_smart"
+DAEMON="/usr/bin/embedded_engine/fan_smart"
 DAEMON_ARGS=""
 DAEMON_NAME="fan_smart"
 

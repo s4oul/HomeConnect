@@ -7,7 +7,7 @@ int main()
     FanSmart fanSmart;
 
     // Set l'environnement d'execution.
-    engine.setEnvironment(false, "/home/pi/logs/");
+    engine.setEnvironment(true, "/home/pi/logs/");
     LOG(eeTypeLog::INFO, "Starting FanSmart !", nullptr);
 
     // Ajout des composants.
