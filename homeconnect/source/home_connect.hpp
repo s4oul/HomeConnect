@@ -8,9 +8,9 @@
 
 class HomeConnect : public eeIComponent
 {
-    private:
-        eeDataAtomic<std::vector<Device>> devices;
+private:
+    eeDataAtomic<std::vector<Device>> devices;
 
-    public:
-        DECLARE_COMPONENT(HomeConnect)
+public:
+    DECLARE_COMPONENT(HomeConnect)
 };

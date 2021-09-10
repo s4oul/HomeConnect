@@ -1,8 +1,9 @@
+#include <connector/network/tcp_server.hpp>
 #include <engine/engine.hpp>
-#include <connector/network/tcp.hpp>
 #include <util/breaker.hpp>
 
 #include <home_connect.hpp>
+#include <home_status.hpp>
 #include <config_project.hpp>
 
 
@@ -15,40 +16,40 @@ constexpr uint32_t serverPort = 8001;
 int main()
 {
     eeEngine engine;
-    eeTcp serverTCP;
+    eeTcpServer server;
     HomeConnect homeConnect;
+    HomeStatus homeStatus;
 
-    // Set env
+    // Met a jour l'environnement.
     engine.setEnvironment(true, pathLog);
     LOG(eeTypeLog::INFO, welcome, nullptr);
 
     // Fichier de configuration du projet.
-    ConfigProject config;
-    config.load(configfile);
+    // ConfigProject config;
+    // ifnot(config.load(configfile), true);
 
     // Ajout des composants.
-    ifnot(engine.addComponent(&homeConnect), true);
+    returnifnot(engine.addComponent(&homeConnect), true, 1);
+    returnifnot(engine.addComponent(&homeStatus), true, 1);
 
     // Initialise les connector
-    ifnot(engine.initializeClock(), true);
-    ifnot(engine.initializeGpio(), true);
-    ifnot(engine.initializeServerTcp(serverPort), true);
+    returnifnot(engine.initializeClock(), true, 1);
+    returnifnot(engine.initializeGpio(), true, 1);
+
+    returnifnot(engine.addServerTcp(uint32_t{8082}), true, 1);
 
     // Chargement de l'ensemble des composants.
-    ifnot(engine.loadAllComponent(), true);
+    returnifnot(engine.loadAllComponent(), true, 1);
 
     // Chargement de l'ensemble des connecteurs
-    ifnot(engine.haveConnector(), true);
+    returnifnot(engine.haveConnector(), true, 1);
 
     // Ajout d'evenemt sur le temps
-    ifnot(engine.addInClock(&homeConnect, std::chrono::seconds(1)), true);
-
-    // Ajout des composants sur le server TCP
-    ifnot(engine.addInServerTcp(&homeConnect), true);
+    returnifnot(engine.addInClock(&homeConnect, std::chrono::seconds(1)), true, 1);
+    returnifnot(engine.addInClock(&homeStatus, std::chrono::seconds(1)), true, 1);
 
     // Lancement des taches
     engine.initTaskClock(true);
-    engine.initTaskServerTCP(true);
 
     // Lance l'application
     engine.run();

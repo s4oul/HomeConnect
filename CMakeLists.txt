@@ -9,7 +9,14 @@ option(TARGET_RASPBERRY_PI_3 "Target Raspberry Pi 3" OFF)
 option(TARGET_RASPBERRY_PICO "Target Raspberry Pico" OFF)
 option(SYNCHRONE "Bibliotheque Synchrone" OFF)
 
-add_compile_options(-W -Wall -Wextra -Wconversion-null)
+add_compile_options(
+    -W
+    -Wall
+    -Wextra
+    -Wconversion-null
+    -Wconversion
+    -Werror=format-security
+)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)

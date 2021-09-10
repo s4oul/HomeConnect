@@ -2,12 +2,12 @@
 #include <fan_smart.hpp>
 
 
-FanSmart::FanSmart()
+FanSmart::FanSmart() noexcept
 {
     setName("FanSmart");
 }
 
-FanSmart::~FanSmart()
+FanSmart::~FanSmart() noexcept
 {
 }
 

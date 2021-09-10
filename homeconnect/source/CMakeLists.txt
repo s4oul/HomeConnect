@@ -1,11 +1,13 @@
 set(HOME_CONNECT_SRCS
     main.cpp
     home_connect.cpp
+    home_status.cpp
     config_project.cpp
 )
 
 set(HOME_CONNECT_HDRS
     home_connect.hpp
+    home_status.hpp
     config_project.hpp
 )
 

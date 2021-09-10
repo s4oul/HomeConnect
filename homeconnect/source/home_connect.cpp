@@ -2,12 +2,12 @@
 #include <home_connect.hpp>
 
 
-HomeConnect::HomeConnect()
+HomeConnect::HomeConnect() noexcept
 {
     setName("HomeConnect");
 }
 
-HomeConnect::~HomeConnect()
+HomeConnect::~HomeConnect() noexcept
 {
 }
 
