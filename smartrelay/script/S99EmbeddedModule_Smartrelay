@@ -1,19 +1,19 @@
 #!/bin/sh -e
 
 ### BEGIN INIT INFO
-# Provides:          EmbeddedEngine Module FanSmart
+# Provides:          EmbeddedEngine Module SmartRelay
 # Required-Start:
 # Required-Stop:
 # Should-Start:
 # Default-Start:     5
 # Default-Stop:
-# Short-Description: Ventillateur on/off
-# Description:       Gestion du ventillateur par la temperature
+# Short-Description: Relay on/off
+# Description:       Gestion du relaie par la temperature
 ### END INIT INFO
 
-DAEMON="/usr/bin/embedded_engine/fan_smart"
+DAEMON="/usr/bin/embedded_engine/smart_relay"
 DAEMON_ARGS=""
-DAEMON_NAME="fan_smart"
+DAEMON_NAME="smart_relay"
 
 . /lib/lsb/init-functions
 ldconfig $DAEMON
@@ -53,7 +53,7 @@ case "$1" in
 	status)
 		status_of_proc "$DAEMON_NAME" "$DAEMON" "system-wide $DAEMON_NAME" && exit 0 || exit $?
 		;;
-	*)	echo "Usage: /etc/init.d/S99EmbeddedModule {start|stop|force-stop|status|restart|reload|force-reload}"
+	*)	echo "Usage: /etc/init.d/S99EmbeddedModule_SmartRelay {start|stop|force-stop|status|restart|reload|force-reload}"
 		touch /home/pi/NOPE
 		exit 1
 		;;

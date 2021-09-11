@@ -7,7 +7,7 @@
 #include <module/relay.hpp>
 #include <module/led_rgb.hpp>
 
-class FanSmart : public eeIComponent
+class SmartRelay : public eeIComponent
 {
 private:
     eeRelay relay;
@@ -22,5 +22,5 @@ private:
     void closeRelay();
 
 public:
-    DECLARE_COMPONENT(FanSmart)
+    DECLARE_COMPONENT(SmartRelay)
 };

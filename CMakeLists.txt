@@ -22,7 +22,7 @@ add_compile_options(
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(EXE_NAME_HOME_CONNECT home_connect)
-set(EXE_NAME_FAN_SMART fan_smart)
+set(EXE_NAME_SMART_RELAY smart_relay)
 set(CMAKE_INSTALL_PREFIX /usr)
 set(CMAKE_CXX_CPPCHECK "cppcheck")
 
@@ -45,9 +45,9 @@ elseif(TARGET_RASPBERRY_PI_3)
 endif()
 
 add_executable(${EXE_NAME_HOME_CONNECT})
-add_executable(${EXE_NAME_FAN_SMART})
+add_executable(${EXE_NAME_SMART_RELAY})
 add_subdirectory(homeconnect)
-add_subdirectory(fansmart)
+add_subdirectory(smartrelay)
 
 message("####################")
 message("CMAKE_CXX_STANDARD          : ${CMAKE_CXX_STANDARD}")

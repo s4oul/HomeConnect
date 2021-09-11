@@ -1,17 +1,17 @@
 #include <util/log.hpp>
-#include <fan_smart.hpp>
+#include <smart_relay.hpp>
 
 
-FanSmart::FanSmart() noexcept
+SmartRelay::SmartRelay() noexcept
 {
-    setName("FanSmart");
+    setName("SmartRelay");
 }
 
-FanSmart::~FanSmart() noexcept
+SmartRelay::~SmartRelay() noexcept
 {
 }
 
-bool FanSmart::load()
+bool SmartRelay::load()
 {
     ledRGB.setPin(
         ::ee::connector::gpio::WPI_GPIO_17,
@@ -30,7 +30,7 @@ bool FanSmart::load()
     return true;
 }
 
-void FanSmart::execute()
+void SmartRelay::execute()
 {
     sensorTemperature.execute();
 
@@ -67,7 +67,7 @@ void FanSmart::execute()
     ledRGB.execute();
 }
 
-void FanSmart::openRelay()
+void SmartRelay::openRelay()
 {
     eeRelay::Data relayData = relay.getData();
 
@@ -81,7 +81,7 @@ void FanSmart::openRelay()
     LOG_COMP(eeTypeLog::INFO, "open relay", nullptr);
 }
 
-void FanSmart::closeRelay()
+void SmartRelay::closeRelay()
 {
     eeRelay::Data relayData = relay.getData();
 
@@ -95,13 +95,13 @@ void FanSmart::closeRelay()
     LOG_COMP(eeTypeLog::INFO, "close relay", nullptr);
 }
 
-void FanSmart::onNotifyQueue(
+void SmartRelay::onNotifyQueue(
     std::size_t /*typeMessageQueue*/,
     eeMessageQueue* /*message*/)
 {
 }
 
-void FanSmart::onStream(
+void SmartRelay::onStream(
     unsigned int /*port*/,
     const char* /*message*/)
 {

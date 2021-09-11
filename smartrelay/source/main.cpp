@@ -1,17 +1,17 @@
 #include <engine/engine.hpp>
-#include <fan_smart.hpp>
+#include <smart_relay.hpp>
 
 int main()
 {
     eeEngine engine;
-    FanSmart fanSmart;
+    SmartRelay smartrelay;
 
     // Set l'environnement d'execution.
     engine.setEnvironment(false, "/home/pi/logs/");
-    LOG(eeTypeLog::INFO, "Starting FanSmart !", nullptr);
+    LOG(eeTypeLog::INFO, "Starting SmartRelay !", nullptr);
 
     // Ajout des composants.
-    if (engine.addComponent(&fanSmart) == false) return 1;
+    if (engine.addComponent(&smartrelay) == false) return 1;
 
     // Initialise les connector
     if (engine.initializeClock() == false) return 1;
@@ -22,7 +22,7 @@ int main()
 
     if (engine.haveConnector() == false) return 1;
 
-    if (engine.addInClock(&fanSmart, std::chrono::seconds(1)) == false) return 1;
+    if (engine.addInClock(&smartrelay, std::chrono::seconds(1)) == false) return 1;
 
     // Lancement des taches
     engine.initTaskClock(true);
