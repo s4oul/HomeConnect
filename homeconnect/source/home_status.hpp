@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <atomic/data_atomic.hpp>
+#include <protected_data/protected_data.hpp>
 #include <component/icomponent.hpp>
 #include <device.hpp>
 
@@ -17,7 +17,7 @@ public:
     };
 
 private:
-    eeDataAtomic<STATUS> status{STATUS::UNAVAILABLE};
+    eeProtectedData<STATUS> status{STATUS::UNAVAILABLE};
 
 public:
     DECLARE_COMPONENT(HomeStatus)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <atomic/data_atomic.hpp>
+#include <protected_data/protected_data.hpp>
 #include <component/icomponent.hpp>
 #include <connector/board/gpio.hpp>
 #include <module/sensor_temperature_ds18b20.hpp>
@@ -13,7 +13,7 @@ private:
     eeRelay relay;
     eeLedRGB ledRGB;
     eeSensorTemperatureDS18B20 sensorTemperature;
-    eeDataAtomic<float> temperatureMax = 25.0f;
+    eeProtectedData<float> temperatureMax = 25.0f;
     
     /// Permet d'ouvrir le relay, on passe sur NO.
     void openRelay();
