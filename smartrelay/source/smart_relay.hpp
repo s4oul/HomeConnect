@@ -13,8 +13,11 @@ private:
     eeRelay relay;
     eeLedRGB ledRGB;
     eeSensorTemperatureDS18B20 sensorTemperature;
-    eeProtectedData<float> temperatureMax = 25.0f;
-    
+    bool checkCommand                     {false};
+    bool checkTemparature                 {false};
+    bool checkTemperatureGreater          {false};
+    eeProtectedData<float> temperatureMax {25.0f};
+
     /// Permet d'ouvrir le relay, on passe sur NO.
     void openRelay();
 
@@ -23,4 +26,9 @@ private:
 
 public:
     DECLARE_COMPONENT(SmartRelay)
+
+    void activeCheckTemperature();
+    void activeCheckOnGreater();
+    void activeCheckOnLower();
+    void activeCheckCommand();
 };

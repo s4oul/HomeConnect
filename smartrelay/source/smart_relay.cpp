@@ -32,44 +32,69 @@ bool SmartRelay::load()
 
 void SmartRelay::execute()
 {
-    sensorTemperature.execute();
+    bool needOpen  {false};
+    bool needClose {false};
 
-    eeSensorTemperatureDS18B20::Data temperatureData = sensorTemperature.getData();
-    eeRelay::Data relayData = relay.getData();
-
-    LOG_COMP(eeTypeLog::INFO,
-        "Sensor Temp (%f) ~ Temp max (%f)",
-        temperatureData.temperature,
-        temperatureMax.get());
-
-    if (temperatureData.temperature >= 99.f)
+    if (true == checkTemparature)
     {
-        LOG_COMP(eeTypeLog::WARNING,
-            "Skip the temperature (%f) is not possible",
-            temperatureData.temperature);
-            return;
-    }
+        sensorTemperature.execute();
 
-    if (temperatureData.temperature >= temperatureMax.get())
-    {
-        if (relayData.output == eeRelay::NORMAL_OUTPUT::CLOSE)
+        auto temperatureData{sensorTemperature.getData()};
+        auto relayData{relay.getData()};
+
+        LOG_COMP(eeTypeLog::INFO,
+            "Sensor Temp (%f) ~ Temp max (%f)",
+            temperatureData.temperature,
+            temperatureMax.get());
+
+        if (temperatureData.temperature >= 99.f)
         {
-            openRelay();
+            LOG_COMP(eeTypeLog::WARNING,
+                "Skip the temperature (%f) is not possible",
+                temperatureData.temperature);
+                return;
+        }
+
+        bool condition
+        {
+            (true == checkTemperatureGreater)
+            ?
+            (temperatureData.temperature >= temperatureMax.get())
+            :
+            (temperatureData.temperature <= temperatureMax.get())
+        };
+
+        if (true == condition)
+        {
+            if (eeRelay::NORMAL_OUTPUT::CLOSE == relayData.output)
+            {
+                needOpen = true;
+            }
+        }
+        else
+        {
+            if (eeRelay::NORMAL_OUTPUT::OPEN == elayData.output)
+            {
+                needClose = true;
+            }
         }
     }
-    else
+
+    if (true == needOpen)
     {
-        if (relayData.output == eeRelay::NORMAL_OUTPUT::OPEN)
-        {
-            closeRelay();
-        }
+        openRelay();
+        ledRGB.execute();
     }
-    ledRGB.execute();
+    else if (true == needClose)
+    {
+        closeRelay();
+        ledRGB.execute();
+    }
 }
 
 void SmartRelay::openRelay()
 {
-    eeRelay::Data relayData = relay.getData();
+    auto relayData{relay.getData()};
 
     relayData.output = eeRelay::NORMAL_OUTPUT::OPEN;
     relay.setData(relayData);
@@ -78,12 +103,13 @@ void SmartRelay::openRelay()
         ::ee::connector::pin::PIN_LOW,
         ::ee::connector::pin::PIN_LOW);
     relay.execute();
+
     LOG_COMP(eeTypeLog::INFO, "open relay", nullptr);
 }
 
 void SmartRelay::closeRelay()
 {
-    eeRelay::Data relayData = relay.getData();
+    auto relayData{relay.getData()};
 
     relayData.output = eeRelay::NORMAL_OUTPUT::CLOSE;
     relay.setData(relayData);
@@ -92,6 +118,7 @@ void SmartRelay::closeRelay()
         ::ee::connector::pin::PIN_HIGH,
         ::ee::connector::pin::PIN_LOW);
     relay.execute();
+
     LOG_COMP(eeTypeLog::INFO, "close relay", nullptr);
 }
 
@@ -99,10 +126,32 @@ void SmartRelay::onNotifyQueue(
     std::size_t /*typeMessageQueue*/,
     eeMessageQueue* /*message*/)
 {
+    if (false == checkCommand)
+        return;
 }
 
 void SmartRelay::onStream(
     unsigned int /*port*/,
     const char* /*message*/)
 {
+}
+
+void SmartRelay::activeCheckTemperature()
+{
+    checkTemparature = true;
+}
+
+void SmartRelay::activeCheckCommand()
+{
+    checkCommand = true;
+}
+
+void SmartRelay::activeCheckOnGreater()
+{
+    checkTemperatureGreater = true;
+}
+
+void SmartRelay::activeCheckOnLower()
+{
+    checkTemperatureGreater = false;
 }

@@ -6,6 +6,10 @@ int main()
     eeEngine engine;
     SmartRelay smartrelay;
 
+    smartrelay.activeCheckTemperature();
+    smartrelay.activeCheckOnGreater();
+    smartrelay.activeCheckCommand();
+
     // Set l'environnement d'execution.
     engine.setEnvironment(false, "/home/pi/logs/");
     LOG(eeTypeLog::INFO, "Starting SmartRelay !", nullptr);
