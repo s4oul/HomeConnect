@@ -73,7 +73,7 @@ void SmartRelay::execute()
         }
         else
         {
-            if (eeRelay::NORMAL_OUTPUT::OPEN == elayData.output)
+            if (eeRelay::NORMAL_OUTPUT::OPEN == relayData.output)
             {
                 needClose = true;
             }
