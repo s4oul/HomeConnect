@@ -39,8 +39,8 @@ void SmartRelay::execute()
     {
         sensorTemperature.execute();
 
-        auto temperatureData{sensorTemperature.getData()};
-        auto relayData{relay.getData()};
+        auto temperatureData {sensorTemperature.getData()};
+        auto relayData       {relay.getData()};
 
         LOG_COMP(eeTypeLog::INFO,
             "Sensor Temp (%f) ~ Temp max (%f)",
