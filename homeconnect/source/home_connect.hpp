@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <protected_data/protected_data.hpp>
+#include <concurrency/protected_data.hpp>
 #include <component/icomponent.hpp>
 #include <device.hpp>
 

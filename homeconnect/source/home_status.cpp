@@ -17,13 +17,16 @@ bool HomeStatus::load()
     return true;
 }
 
-void HomeStatus::execute()
+void HomeStatus::process()
 {
+}
 
+void HomeStatus::onTimer()
+{
 }
 
 void HomeStatus::onNotifyQueue(
-    std::size_t typeMessageQueue,
+    uint32_t typeMessageQueue,
     eeMessageQueue* message)
 {
     if (message == nullptr)
@@ -45,7 +48,7 @@ void HomeStatus::onNotifyQueue(
 }
 
 void HomeStatus::onStream(
-    unsigned int /*port*/,
-    const char* /*message*/)
+    [[maybe_unused]] unsigned int port,
+    [[maybe_unused]] const char* message)
 {
 }

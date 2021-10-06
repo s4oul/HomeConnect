@@ -1,6 +1,6 @@
 #pragma once
 
-#include <protected_data/protected_data.hpp>
+#include <concurrency/protected_data.hpp>
 #include <component/icomponent.hpp>
 #include <connector/board/gpio.hpp>
 #include <module/sensor_temperature_ds18b20.hpp>

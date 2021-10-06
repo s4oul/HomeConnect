@@ -30,7 +30,11 @@ bool SmartRelay::load()
     return true;
 }
 
-void SmartRelay::execute()
+void SmartRelay::process()
+{
+}
+
+void SmartRelay::onTimer()
 {
     bool needOpen  {false};
     bool needClose {false};
@@ -123,16 +127,18 @@ void SmartRelay::closeRelay()
 }
 
 void SmartRelay::onNotifyQueue(
-    std::size_t /*typeMessageQueue*/,
-    eeMessageQueue* /*message*/)
+    [[maybe_unused]] uint32_t typeMessageQueue,
+    [[maybe_unused]] eeMessageQueue* message)
 {
     if (false == checkCommand)
+    {
         return;
+    }
 }
 
 void SmartRelay::onStream(
-    unsigned int /*port*/,
-    const char* /*message*/)
+    [[maybe_unused]]  unsigned int port,
+    [[maybe_unused]] const char* message)
 {
 }
 

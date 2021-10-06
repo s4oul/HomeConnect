@@ -16,7 +16,11 @@ bool HomeConnect::load()
     return true;
 }
 
-void HomeConnect::execute()
+void HomeConnect::process()
+{
+}
+
+void HomeConnect::onTimer()
 {
     std::vector<Device> copyDevices = devices.get();
     for (Device& device : copyDevices)
@@ -30,13 +34,13 @@ void HomeConnect::execute()
 }
 
 void HomeConnect::onNotifyQueue(
-    std::size_t /*typeMessageQueue*/,
-    eeMessageQueue* /*message*/)
+    [[maybe_unused]] uint32_t typeMessageQueue,
+    [[maybe_unused]] eeMessageQueue* message)
 {
 }
 
 void HomeConnect::onStream(
-    unsigned int /*port*/,
-    const char* /*message*/)
+    [[maybe_unused]] unsigned int port,
+    [[maybe_unused]] const char* message)
 {
 }
