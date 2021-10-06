@@ -89,7 +89,7 @@ void SmartRelay::onTimer()
         openRelay();
         ledRGB.execute();
     }
-    else if (true == needClose)
+    else if (false == needClose)
     {
         closeRelay();
         ledRGB.execute();
