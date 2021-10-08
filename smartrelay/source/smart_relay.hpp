@@ -14,7 +14,7 @@ private:
     eeLedRGB ledRGB;
     eeSensorTemperatureDS18B20 sensorTemperature;
     bool checkCommand                     {false};
-    bool checkTemparature                 {false};
+    bool checkTemperature                 {false};
     bool checkTemperatureGreater          {false};
     eeProtectedData<float> temperatureMax {25.0f};
 

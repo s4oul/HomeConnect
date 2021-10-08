@@ -13,18 +13,13 @@ SmartRelay::~SmartRelay() noexcept
 
 bool SmartRelay::load()
 {
+    sensorTemperature.setPin(::ee::connector::gpio::WPI_GPIO_21);
+    relay.setPin(::ee::connector::gpio::WPI_GPIO_20);
     ledRGB.setPin(
         ::ee::connector::gpio::WPI_GPIO_17,
         ::ee::connector::gpio::WPI_GPIO_27,
         ::ee::connector::gpio::WPI_GPIO_22
     );
-    ledRGB.setColor(
-        ::ee::connector::pin::PIN_LOW,
-        ::ee::connector::pin::PIN_LOW,
-        ::ee::connector::pin::PIN_HIGH
-    );
-    sensorTemperature.setPin(::ee::connector::gpio::WPI_GPIO_21);
-    relay.setPin(::ee::connector::gpio::WPI_GPIO_20);
 
     closeRelay();
     return true;
@@ -39,7 +34,7 @@ void SmartRelay::onTimer()
     bool needOpen  {false};
     bool needClose {false};
 
-    if (true == checkTemparature)
+    if (true == checkTemperature)
     {
         sensorTemperature.execute();
 
@@ -59,16 +54,17 @@ void SmartRelay::onTimer()
                 return;
         }
 
-        bool condition
+        bool condition{false};
+        if (true == checkTemperatureGreater)
         {
-            (true == checkTemperatureGreater)
-            ?
-            (temperatureData.temperature >= temperatureMax.get())
-            :
-            (temperatureData.temperature < temperatureMax.get())
-        };
+            condition = (temperatureData.temperature >= temperatureMax.get());
+        }
+        else
+        {
+            condition = (temperatureData.temperature <= temperatureMax.get());
+        }
 
-        if (true == condition)
+        if (condition)
         {
             if (eeRelay::NORMAL_OUTPUT::CLOSE == relayData.output)
             {
@@ -87,12 +83,10 @@ void SmartRelay::onTimer()
     if (true == needOpen)
     {
         openRelay();
-        ledRGB.execute();
     }
     if (true == needClose)
     {
         closeRelay();
-        ledRGB.execute();
     }
 }
 
@@ -107,6 +101,7 @@ void SmartRelay::openRelay()
         ::ee::connector::pin::PIN_LOW,
         ::ee::connector::pin::PIN_LOW);
     relay.execute();
+    ledRGB.execute();
 
     LOG_COMP(eeTypeLog::INFO, "open relay", nullptr);
 }
@@ -122,6 +117,7 @@ void SmartRelay::closeRelay()
         ::ee::connector::pin::PIN_HIGH,
         ::ee::connector::pin::PIN_LOW);
     relay.execute();
+    ledRGB.execute();
 
     LOG_COMP(eeTypeLog::INFO, "close relay", nullptr);
 }
@@ -144,7 +140,7 @@ void SmartRelay::onStream(
 
 void SmartRelay::activeCheckTemperature()
 {
-    checkTemparature = true;
+    checkTemperature = true;
 }
 
 void SmartRelay::activeCheckCommand()
