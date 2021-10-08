@@ -65,7 +65,7 @@ void SmartRelay::onTimer()
             ?
             (temperatureData.temperature >= temperatureMax.get())
             :
-            (temperatureData.temperature <= temperatureMax.get())
+            (temperatureData.temperature < temperatureMax.get())
         };
 
         if (true == condition)
@@ -89,7 +89,7 @@ void SmartRelay::onTimer()
         openRelay();
         ledRGB.execute();
     }
-    else
+    if (true == needClose)
     {
         closeRelay();
         ledRGB.execute();
